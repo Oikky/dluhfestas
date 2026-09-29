@@ -54,7 +54,7 @@
   function daReserva() {
     return new Promise(resolve => {
       const s = document.createElement("script");
-      s.src = "js/catalogo-reserva.js?v=16";
+      s.src = "js/catalogo-reserva.js?v=19";
       s.onload = () => resolve(window.DLUH_CATALOGO);
       s.onerror = () => resolve({ produtos: [], recheios: [] });
       document.head.appendChild(s);
