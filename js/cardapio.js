@@ -358,7 +358,7 @@
   function irPara(passo, { empurrar = true } = {}) {
     if (passo === "montar") {
       vistaFinalizar.hidden = true; vistaRecebido.hidden = true; vistaMontar.hidden = false;
-      if (empurrar) history.pushState({ passo }, "", "cardapio.html");
+      if (empurrar) history.pushState({ passo }, "", "/cardapio");
       return;
     }
     if (!itensDoCarrinho().length || faltaEscolha().length) { irPara("montar", { empurrar }); return; }
@@ -547,9 +547,9 @@
         <dt>Situação</dt><dd>Aguardando confirmação</dd>
       </dl>`;
     document.getElementById("recebido-whats").href = D.linkWhats(`Oi! Acabei de fazer o pedido ${id} pelo site.`);
-    document.getElementById("recebido-acompanhar").href = `pedido.html?n=${encodeURIComponent(id)}`;
+    document.getElementById("recebido-acompanhar").href = `/pedido?n=${encodeURIComponent(id)}`;
     vistaMontar.hidden = true; vistaFinalizar.hidden = true; vistaRecebido.hidden = false;
-    history.replaceState({ passo: "montar" }, "", "cardapio.html");
+    history.replaceState({ passo: "montar" }, "", "/cardapio");
     window.scrollTo({ top: 0 });
     document.getElementById("titulo-recebido").focus({ preventScroll: true });
   }

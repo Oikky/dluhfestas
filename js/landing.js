@@ -61,7 +61,7 @@
     const reserva = produtos.filter(p => dentro.includes(p.categoria) && p.imagem);
     const capa = lista.find(p => p.imagem && g.prefere.test(p.nome)) || lista.find(p => p.imagem) || reserva.find(p => /bolinha|kibe|risol/i.test(p.nome)) || reserva[0] || lista[0];
     const menor = Math.min(...lista.map(p => (p.qtdMin >= 25 ? p.valorUnit * 100 : p.valorUnit)));
-    return `<li class="cat-foto"><a href="cardapio.html#${g.slug}">
+    return `<li class="cat-foto"><a href="/cardapio#${g.slug}">
       <span class="cat-foto__img">${foto(capa, "card__foto--vazia")}</span>
       <strong>${g.nome}</strong><span class="num">a partir de ${D.brlPlaca(menor)}</span>
     </a></li>`;
@@ -87,7 +87,7 @@
           <div class="card__pe">
             <p class="card__preco num"><strong>${pr.valor}</strong><small>${pr.sufixo}</small></p>
             ${precisaEscolha(p)
-              ? `<a class="mais" href="cardapio.html#${c ? c.slug : ""}" aria-label="Escolher ${D.esc(nome)} no cardápio">${D.icone("seta")}</a>`
+              ? `<a class="mais" href="/cardapio#${c ? c.slug : ""}" aria-label="Escolher ${D.esc(nome)} no cardápio">${D.icone("seta")}</a>`
               : `<button class="mais" type="button" data-somar="${p.id}" aria-label="Pôr ${p.qtdMin > 1 ? p.qtdMin + " " : ""}${D.esc(nome)} no pedido">${D.icone("mais")}</button>`}
           </div>
         </div>
@@ -106,7 +106,7 @@
     D.atualizarSacola();
     desenharPreferidos();
     alvo.querySelector(`[data-somar="${p.id}"]`)?.focus({ preventScroll: true });
-    D.recado(`${carrinho.linhas[p.id].qtd} ${D.nomeLimpo(p.nome)} no pedido`, { href: "cardapio.html", texto: "Ver pedido" });
+    D.recado(`${carrinho.linhas[p.id].qtd} ${D.nomeLimpo(p.nome)} no pedido`, { href: "/cardapio", texto: "Ver pedido" });
   });
 
   /* Aros: círculo proporcional ao diâmetro, todos na mesma base. */

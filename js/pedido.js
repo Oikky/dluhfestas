@@ -64,7 +64,7 @@
         resultado.innerHTML = `<div class="situacao"><p class="aviso aviso--erro" role="alert">${D.icone("alerta")}<span>Não achamos esse pedido com esse WhatsApp. Confira o número (ele começa com PED) e use o mesmo telefone do pedido.</span></p></div>`;
       } else {
         resultado.innerHTML = htmlPedido(r.pedido);
-        history.replaceState(null, "", `pedido.html?n=${encodeURIComponent(r.pedido.id)}`);
+        history.replaceState(null, "", `/pedido?n=${encodeURIComponent(r.pedido.id)}`);
       }
     } catch (_) {
       resultado.innerHTML = `<div class="situacao"><p class="aviso aviso--erro" role="alert">${D.icone("alerta")}<span>Não deu pra buscar agora. Confira a internet e tente de novo.</span></p></div>`;
