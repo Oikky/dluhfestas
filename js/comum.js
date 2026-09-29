@@ -113,7 +113,8 @@
     return produtos.filter(x => x.id !== p.id && cats.includes(String(x.categoria).toLowerCase().trim())).map(x => x.nome);
   }
   /* Quanto soma cada toque no "+": de 25 em 25 pra quem vende por cento, de 1 em 1 no resto. */
-  function passoDe(p) { return p.qtdMin >= 25 ? 25 : 1; }
+  /* Depois do mínimo, o que vende por cento anda de 5 em 5; o resto (bolo, pacote), de 1 em 1. */
+  function passoDe(p) { return p.qtdMin >= 25 ? 5 : 1; }
   function nomeLimpo(nome) { return String(nome).replace(/^[^\p{L}\p{N}]+/u, "").trim(); }
 
   /* ── Carrinho (fica no aparelho) ── */

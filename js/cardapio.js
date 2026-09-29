@@ -147,22 +147,25 @@
   }, true);
 
   /* Interação na lista */
-  elCategorias.addEventListener("click", e => {
-    const btn = e.target.closest("button[data-acao]");
-    if (!btn) return;
-    const id = btn.closest("[data-produto]").dataset.produto;
+  /* Mais, menos e tirar: os mesmos no cartão do produto e na lista do pedido. */
+  function mudar(id, acao, avisar) {
     const p = porId.get(id);
     const atual = linha(id) ? linha(id).qtd : 0;
-    if (btn.dataset.acao === "somar") {
+    if (acao === "somar") {
       definirQtd(id, atual === 0 ? p.qtdMin : atual + D.passoDe(p));
-      if (atual === 0) D.recado(`${D.nomeLimpo(p.nome)} no pedido`);
-    } else if (btn.dataset.acao === "menos") {
-      const novo = atual - D.passoDe(p);
+      if (atual === 0 && avisar) D.recado(`${D.nomeLimpo(p.nome)} no pedido`);
+    } else if (acao === "menos" || acao === "tirar") {
+      const novo = acao === "tirar" ? 0 : atual - D.passoDe(p);
       definirQtd(id, novo < p.qtdMin ? 0 : novo);
-      if (novo < p.qtdMin) D.recado(`${D.nomeLimpo(p.nome)} saiu do pedido`);
+      if (novo < p.qtdMin && avisar) D.recado(`${D.nomeLimpo(p.nome)} saiu do pedido`);
     }
     desenharProduto(id);
     atualizarComanda();
+  }
+  elCategorias.addEventListener("click", e => {
+    const btn = e.target.closest("button[data-acao]");
+    if (!btn) return;
+    mudar(btn.closest("[data-produto]").dataset.produto, btn.dataset.acao, true);
   });
 
   /* Digitando a quantidade: mostra o novo total antes de valer. */
@@ -240,8 +243,16 @@
       ${qtdLinhas ? `<ul class="comanda__itens">${itens.map(({ p, l }) => `
         <li class="comanda__item">
           ${p.imagem ? `<img src="${D.esc(p.imagem)}" alt="" width="48" height="48" loading="lazy">` : `<span class="miniatura" aria-hidden="true">${D.semFoto()}</span>`}
-          <strong>${l.qtd} × ${D.esc(D.nomeLimpo(p.nome))}</strong><span class="num">${D.brl(p.valorUnit * l.qtd)}</span>
+          <strong>${D.esc(D.nomeLimpo(p.nome))}</strong><span class="num">${D.brl(p.valorUnit * l.qtd)}</span>
           ${opcoesDe(p) ? `<small>${l.escolhas.map((e, i) => e.length ? D.esc(e.join(" e ")) : `${rotuloUnidade(p)} ${i + 1}: falta escolher`).join(" · ")}</small>` : ""}
+          <div class="comanda__acoes">
+            <div class="contador contador--mini" role="group" aria-label="Quantidade de ${D.esc(D.nomeLimpo(p.nome))}">
+              <button type="button" data-comanda="menos" data-id="${D.esc(p.id)}" aria-label="${l.qtd <= p.qtdMin ? "Tirar do pedido" : `Tirar ${D.passoDe(p)}`}">${D.icone(l.qtd <= p.qtdMin ? "lixo" : "menos")}</button>
+              <input class="num" type="number" inputmode="numeric" min="${p.qtdMin}" step="1" value="${l.qtd}" data-comanda-qtd data-id="${D.esc(p.id)}" aria-label="Quantidade de ${D.esc(D.nomeLimpo(p.nome))}">
+              <button type="button" data-comanda="somar" data-id="${D.esc(p.id)}" aria-label="Somar ${D.passoDe(p)}">${D.icone("mais")}</button>
+            </div>
+            <button class="comanda__tirar" type="button" data-comanda="tirar" data-id="${D.esc(p.id)}">${D.icone("lixo")} Tirar</button>
+          </div>
         </li>`).join("")}</ul>`
         : `<p class="comanda__vazia">${D.icone("sacola")}Nada ainda. Toque no + dos itens e eles aparecem aqui.</p>`}
       <div class="comanda__pe">
@@ -273,6 +284,30 @@
     totalAnterior = total;
   }
   atualizarComanda();
+
+  /* Mudar e tirar direto na lista do pedido (coluna e folha). O foco volta pro mesmo botão. */
+  comandas.forEach(el => {
+    el.addEventListener("click", e => {
+      const b = e.target.closest("button[data-comanda]");
+      if (!b) return;
+      const { id } = b.dataset, acao = b.dataset.comanda;
+      mudar(id, acao, false);
+      const volta = el.querySelector(`button[data-comanda="${acao}"][data-id="${CSS.escape(id)}"]`)
+        || el.querySelector(`[data-comanda-qtd][data-id="${CSS.escape(id)}"]`) || el.querySelector("[data-continuar]");
+      if (volta && !volta.disabled) volta.focus({ preventScroll: true });
+    });
+    el.addEventListener("change", e => {
+      const inp = e.target.closest("[data-comanda-qtd]");
+      if (!inp) return;
+      const n = Math.floor(Number(inp.value) || 0);
+      definirQtd(inp.dataset.id, n);
+      desenharProduto(inp.dataset.id);
+      atualizarComanda();
+    });
+    el.addEventListener("keydown", e => {
+      if (e.key === "Enter" && e.target.closest("[data-comanda-qtd]")) { e.preventDefault(); e.target.blur(); }
+    });
+  });
 
   /* Folha no celular */
   const folha = document.getElementById("folha");
