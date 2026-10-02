@@ -119,7 +119,7 @@ const ddmm = iso => iso ? iso.slice(8, 10) + "/" + iso.slice(5, 7) : "";
 
 function VisaoGeral({ compact, onView, onQ }) {
   const ped = useAoVivo("pedidos");
-  const pag = useAoVivo("todosPagamentos");
+  const pag = useAoVivo("pagamentosRecentes");
   const [verReceber, setVerReceber] = React.useState(false);
   const erro = ped.estado === "erro" && !ped.dados ? ped : pag.estado === "erro" && !pag.dados ? pag : null;
   const r = React.useMemo(() => ped.dados && pag.dados ? resumoDe(ped.dados, pag.dados, window.DLUH_API.hoje()) : null, [ped.dados, pag.dados]);
@@ -145,7 +145,7 @@ function VisaoGeral({ compact, onView, onQ }) {
           sub={`${r.ticketN} ${r.ticketN === 1 ? "pedido" : "pedidos"} nos últimos 30 dias`} />
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: compact ? "1fr" : "1.6fr 1fr", gap: 12, alignItems: "start" }}>
+      <div style={{ display: "grid", gridTemplateColumns: compact ? "minmax(0,1fr)" : "1.6fr 1fr", gap: 12, alignItems: "start" }}>
         <ChartCard compact={compact} r={r} />
         <Card header={<>
           <div style={{ fontSize: "var(--fs-title)", fontWeight: "var(--fw-semibold)" }}>Pagamentos recentes</div>

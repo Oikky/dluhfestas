@@ -1,6 +1,6 @@
 <!-- @dsCard group="Admin" viewport="1280x820" name="D'Luh Admin" subtitle="Painel de pedidos — visão geral, pedidos, agenda, cozinha, produtos e financeiro; desktop e mobile" -->
 <!DOCTYPE html><html lang="pt-BR"><head>
-  <meta name="robots" content="noindex, nofollow"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>D'Luh Admin</title>
 <!-- App instalável (PC e celular): ícone D + "admin", gerado por tools/icones-admin.mjs -->
 <link rel="manifest" href="manifest.webmanifest">
@@ -12,7 +12,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="D'Luh Admin">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<link rel="stylesheet" href="ds/styles.css?v=20260930001315">
+<link rel="stylesheet" href="ds/styles.css?v=20261001232722">
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
@@ -43,6 +43,11 @@ button:not(:disabled):active{transform:scale(var(--press-scale))}
   button:not([data-cell]):not([role="tab"]):not([role="menuitem"]){min-width:var(--tap-min)!important}
 }
 @media (prefers-reduced-motion:reduce){button:not(:disabled):active{transform:none}}
+/* Celular: sem o flash cinza do toque, sem o atraso de toque duplo, sem selecionar o texto do botão
+   num toque longo, e campos com 16px para o iPhone não dar zoom na página ao focar. */
+html{-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
+button,[role="tab"],[role="menuitem"],label[data-target]{touch-action:manipulation;-webkit-user-select:none;user-select:none}
+@media (pointer:coarse){input,textarea,select{font-size:16px!important}}
 </style>
 </head><body><div id="root"></div>
 <!-- Os arquivos do admin passam por aqui em vez de <script src> direto: antes de carregar, cada um é
@@ -50,7 +55,7 @@ button:not(:disabled):active{transform:scale(var(--press-scale))}
      versão nova logo depois de publicar, sem Ctrl+Shift+R. A ordem é a mesma de antes. -->
 <script>
 (async () => {
-  const V = "?v=20260930001315"; // tools/publicar-site.py troca por "?v=<data>" na cópia de www.dluhfestas.com/admin
+  const V = "?v=20261001232722"; // tools/publicar-site.py troca por "?v=<data>" na cópia de www.dluhfestas.com/admin
   const LOCAIS = ["ds/_ds_bundle.js","data.js","contratos-data.js","data-extremos.js","api.js","firebase.js"];
   const TELAS = ["Estados.jsx","Busca.jsx","Notificacoes.jsx","Shell.jsx","VisaoGeral.jsx","Catalogo.jsx","PedidosModais.jsx","Pedidos.jsx","Agenda.jsx","Contratos.jsx","Financeiro.jsx","Cozinha.jsx","Produtos.jsx","Clientes.jsx","App.jsx"];
   await Promise.all(["ds/styles.css", ...LOCAIS, ...TELAS].map(u => fetch(u + V, { cache: "no-cache" }).catch(() => {})));
