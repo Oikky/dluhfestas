@@ -12,7 +12,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="D'Luh Admin">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<link rel="stylesheet" href="ds/styles.css?v=20261003161713">
+<link rel="stylesheet" href="ds/styles.css?v=20261007151227">
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
@@ -56,7 +56,7 @@ button,[role="tab"],[role="menuitem"],label[data-target]{touch-action:manipulati
 <script>
 window.DLUH_VOLTAR = true; // botão voltar do celular fecha camadas em vez de sair (Modal.jsx, useVoltar)
 (async () => {
-  const V = "?v=20261003161713"; // tools/publicar-site.py troca por "?v=<data>" na cópia de www.dluhfestas.com/admin
+  const V = "?v=20261007151227"; // tools/publicar-site.py troca por "?v=<data>" na cópia de www.dluhfestas.com/admin
   const LOCAIS = ["ds/_ds_bundle.js","data.js","contratos-data.js","data-extremos.js","api.js","firebase.js"];
   const TELAS = ["Estados.jsx","Busca.jsx","Notificacoes.jsx","Shell.jsx","VisaoGeral.jsx","Catalogo.jsx","PedidosModais.jsx","Pedidos.jsx","Boletos.jsx","Agenda.jsx","Contratos.jsx","Financeiro.jsx","Cozinha.jsx","Produtos.jsx","Clientes.jsx","App.jsx"];
   await Promise.all(["ds/styles.css", ...LOCAIS, ...TELAS].map(u => fetch(u + V, { cache: "no-cache" }).catch(() => {})));
