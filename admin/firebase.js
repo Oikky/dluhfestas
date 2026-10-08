@@ -5,10 +5,10 @@ if (new URLSearchParams(location.search).get("fonte") !== "demo") {
   const V = "10.12.0";
   const API = "https://api.dluhfestas.com";
   const CONFIG = {
-    apiKey: "AIzaSyCV7LcTZmCE9MpezCvBah0hHQ245WYcixs",
-    authDomain: "dluh-festas.firebaseapp.com",
-    projectId: "dluh-festas",
-    appId: "1:460615557884:web:5162c5aba8467ddb57ed79"
+    apiKey: "AIzaSyAeUAqcEZojhEqrsubbV0nx6zmN-4hcBX0",
+    authDomain: "dluh-festas-reserva.firebaseapp.com",
+    projectId: "dluh-festas-reserva",
+    appId: "1:471184213272:web:a17042edce2d45b0500a6d"
   };
 
   window.DLUH_FB = (async () => {

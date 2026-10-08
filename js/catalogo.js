@@ -4,7 +4,7 @@
    cópia boa guardada no aparelho e, sem ela, a cópia de reserva (js/catalogo-reserva.js). */
 (function () {
   "use strict";
-  const BASE = "https://firestore.googleapis.com/v1/projects/dluh-festas/databases/(default)/documents";
+  const BASE = "https://firestore.googleapis.com/v1/projects/dluh-festas-reserva/databases/(default)/documents";
   const CHAVE = "dluh_site_catalogo_v1";
   const LIMITE_MS = 6000;
 

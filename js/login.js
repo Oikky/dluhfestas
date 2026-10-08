@@ -5,10 +5,10 @@
   "use strict";
   const V = "10.12.0";
   const CONFIG = {
-    apiKey: "AIzaSyCV7LcTZmCE9MpezCvBah0hHQ245WYcixs",
-    authDomain: "dluh-festas.firebaseapp.com",
-    projectId: "dluh-festas",
-    appId: "1:460615557884:web:5162c5aba8467ddb57ed79"
+    apiKey: "AIzaSyAeUAqcEZojhEqrsubbV0nx6zmN-4hcBX0",
+    authDomain: "dluh-festas-reserva.firebaseapp.com",
+    projectId: "dluh-festas-reserva",
+    appId: "1:471184213272:web:a17042edce2d45b0500a6d"
   };
   /* Navegador de dentro do Instagram/Facebook/WhatsApp: o Google não deixa entrar ali. */
   const naoDeixaGoogle = /Instagram|FBAN|FBAV|FB_IAB|WhatsApp|Line\//i.test(navigator.userAgent);
