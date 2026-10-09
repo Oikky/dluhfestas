@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600..800;1,600..700&family=Urbanist:wght@400..800&display=swap">
-  <link rel="stylesheet" href="css/site.css?v=22">
+  <link rel="stylesheet" href="css/site.css?v=24">
 </head>
 <body>
   <a class="pular" href="#conteudo">Pular para o conteúdo</a>
@@ -215,8 +215,12 @@
             </fieldset>
           </div>
 
+          <div class="total total--linha" id="revisao-frete" hidden>
+            <span>Entrega</span>
+            <strong class="num" id="revisao-frete-valor"></strong>
+          </div>
           <div class="total">
-            <span>Total dos itens</span>
+            <span id="revisao-total-rotulo">Total dos itens</span>
             <strong class="num" id="revisao-total">R$ 0,00</strong>
           </div>
           <p class="total__nota" id="revisao-nota"></p>
@@ -282,7 +286,7 @@
   <script src="js/comum.js?v=22"></script>
   <script src="js/marca-dados.js?v=22"></script>
   <script src="js/marca.js?v=22"></script>
-  <script src="js/catalogo.js?v=22"></script>
+  <script src="js/catalogo.js?v=23"></script>
   <script src="js/login.js?v=22"></script>
   <script src="js/api.js?v=22"></script>
   <script src="js/api-teste.js?v=22"></script>
